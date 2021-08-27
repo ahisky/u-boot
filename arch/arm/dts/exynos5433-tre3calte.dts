@@ -1,0 +1,56 @@
+/*
+ * N4 S-LTE device tree source
+ *
+ * NOTE : This port is not successfully tested; it may not work on the tre3calte.
+ *
+ * Copyright (c) 2018 Samsung Electronics Co., Ltd.
+ *		http://www.samsung.com
+ *
+ * Copyright (c) 2021 Androians-hi SKY Developing
+ *              http://ahs.archve.ga
+ *
+ * SPDX-License-Identifier:	GPL-2.0+
+ */
+
+/dts-v1/;
+#include "exynos5433.dtsi"
+
+/ {
+	model = "Samsung TR 3CA LTE KOR EVT1 revision 05 board based on EXYNOS5433";
+
+	/*
+	 * These lines came from downstream kernel.
+	 * Please remove if issue occurs.
+	 */
+	model_info-chip = <5433>;
+	model_info-platform = "tre3calte";
+	model_info-subtype = "tre3calte_kor_open";
+	model_info-hw_rev = <5>;
+	model_info-hw_rev_end = <13>;
+	/*
+	 * Downstream Kernel lines end.
+	 */
+
+	compatible = "samsung,TR 3CA LTE EVT1 KOR,r05", "samsung,exynos5433";
+
+	aliases {
+		serial0 = &serial_1;
+		console = &serial_1;
+		i2c0 = &i2c;
+	};
+
+	i2c: i2c {
+		compatible = "i2c-gpio";
+		gpios = <&gpb0 0 0>,	/* sda */
+			<&gpb0 1 0>;	/* scl */
+		i2c-gpio,delay-us = <2>;        /* ~100 kHz */
+	};
+};
+
+&mmc_0 {
+	status = "okay";
+};
+
+&serial_1 {
+	status = "okay";
+};
